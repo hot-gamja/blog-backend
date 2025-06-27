@@ -16,4 +16,13 @@ export class UserRepository {
         const row = result.rows[0];
         return row ? new User(row.id, row.name) : undefined;
     }
+
+    async create(name: string): Promise<User> {
+        const result = await this.pg.getClient().query(
+            'INSERT INTO users (name) VALUES ($1) RETURNING id, name',
+            [name],
+        );
+        const row = result.rows[0];
+        return new User(row.id, row.name);
+    }
 }

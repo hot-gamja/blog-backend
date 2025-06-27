@@ -13,4 +13,8 @@ export class UserService {
     getUser(id: number): Promise<User | undefined> {
         return this.userRepo.findById(id);
     }
+
+    createUser(name: string): Promise<User> {
+        return this.userRepo.create(name);
+    }
 }
